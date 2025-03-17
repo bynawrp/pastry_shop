@@ -1,14 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { apiSlice } from "./slice/apiSlice.js";
+import { connectSlice } from "./slice/loginSlice";
 
 const store = configureStore({
     reducer: {
-        [apiSlice.reducerPath]: apiSlice.reducer
+        [connectSlice.reducerPath]: connectSlice.reducer
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware()
             .concat([
-                apiSlice.middleware
+                connectSlice.middleware
             ])
 })
 

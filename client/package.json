@@ -4,14 +4,20 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "deploy": "vite build && gh-pages -d dist",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
+    "gh-pages": "^6.3.0",
+    "@reduxjs/toolkit": "^2.6.0",
+    "react-redux": "^9.2.0",
+    "react-router": "^7.2.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "sass": "^1.85.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",

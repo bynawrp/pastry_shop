@@ -21,12 +21,12 @@ app.use(cors({
   credentials: true
 }));
 
-app.use(express.urlencoded());
+// app.use(express.urlencoded());
 app.use(express.json());
 app.use(cookieParser());
 
 // les données
-app.use( readPastries  )
+app.use(readPastries)
 
 // router
 app.use(router);
