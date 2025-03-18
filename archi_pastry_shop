@@ -23,7 +23,7 @@ PAGES MODULES :
 - JOUER : 
 	- text
 	- Yams() : 
-		- Dé à lanccé ()
+		- Dï¿½ ï¿½ lanccï¿½ ()
 		- button
 
 
@@ -57,8 +57,8 @@ app/
 			
 			Button.jsx
 			
-			ListPastery.jsx/
-				Pastery.jsx
+			Listpastry.jsx/
+				pastry.jsx
 			
 			Yams.jsx/
 				Dice.jsx

@@ -1,0 +1,25 @@
+$primary-color: #2c3e50;
+$secondary-color: #e74c3c;
+$tertiary-color: #ff6600;
+$background-light: #f9f9f9;
+$text-color: #333;
+$text-light: #ecf0f1;
+$border-color: #ddd;
+$shadow-color: rgba(0, 0, 0, 0.1);
+$hover-darken: #e65c00;
+$box-shadow: 0px 4px 8px $shadow-color;
+
+$btn-game: $tertiary-color;
+$btn-game-hover: #cc5200;
+
+$btn-login: $primary-color;
+$btn-login-hover: #e65c00;
+
+$btn-add: #2ecc71;
+$btn-add-hover: #25a25a;
+
+$btn-delete: $secondary-color;
+$btn-delete-hover: #c0392b;
+
+$btn-update: $hover-darken;
+$btn-update-hover: #cc5200;

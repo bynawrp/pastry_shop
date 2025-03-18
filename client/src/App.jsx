@@ -7,10 +7,11 @@ import Footer from "./components/Footer"
 import HomePage from "./pages/Home/HomePage"
 import LoginPage from "./pages/Login/LoginPage"
 import ContactPage from "./pages/Contact/ContactPage"
-// import GamePage from "./pages/Game/GamePage"
+import GamePage from "./pages/Game/GamePage"
 import AdminPage from "./pages/Admin/AdminPage"
 
 import "./assets/style/app.scss"
+
 function App() {
 
 
@@ -18,12 +19,13 @@ function App() {
     <>
       <Header />
       <Routes >
-        <Route path={"/"} element={<LoginPage />} />
-        <Route path={"/home"} element={<HomePage />} />
+        <Route path={"/login"} element={<LoginPage />} />
+        <Route path={"/"} element={<HomePage />} />
+        <Route path={"/game"} element={<GamePage />} />
         <Route path={"/admin"} element={<AdminPage />} />
         <Route path={"/contact"} element={<ContactPage />} />
       </Routes>
-      {/* <Footer /> */}
+      <Footer />
     </>
   )
 }

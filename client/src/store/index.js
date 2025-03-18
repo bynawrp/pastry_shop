@@ -1,14 +1,21 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { connectSlice } from "./slice/loginSlice";
+import { userSlice } from "./slice/userSlice";
+// import { pastrySlice } from "./slice/pastrySlice";
+import { gameSlice } from "./slice/gameSlice";
+import { crudSlice } from "./slice/crudSlice";
 
 const store = configureStore({
     reducer: {
-        [connectSlice.reducerPath]: connectSlice.reducer
+        [userSlice.reducerPath]: userSlice.reducer,
+        [gameSlice.reducerPath]: gameSlice.reducer,
+        [crudSlice.reducerPath]: crudSlice.reducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware()
             .concat([
-                connectSlice.middleware
+                userSlice.middleware,
+                gameSlice.middleware,
+                crudSlice.middleware
             ])
 })
 

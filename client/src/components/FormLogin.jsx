@@ -1,7 +1,9 @@
 import { useState } from "react"
-import InputLogin from "./InputLogin"
-import { useLoginMutation } from "../store/slice/loginSlice"
+import { useLoginMutation } from "../store/slice/userSlice"
 import { useNavigate } from "react-router"
+
+import InputLogin from "./InputLogin"
+import Button from "./Button"
 
 const FormLogin = () => {
     const navigate = useNavigate()
@@ -15,17 +17,16 @@ const FormLogin = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const reponse = await login(formData)
-            console.log(reponse)
+            const reponse = await login(formData).unwrap();
 
-            if (reponse.data) {
+            console.log(reponse)
+            if (reponse.id) {
                 setFormData({ email: "", password: "" })
-                navigate("/home")
+                navigate("/")
             }
 
         } catch (err) {
             console.error("Erreur lors de la connexion :", err);
-            alert("Échec de la connexion !");
         }
     };
 
@@ -33,10 +34,13 @@ const FormLogin = () => {
         <form onSubmit={handleSubmit} className="form-login">
             <InputLogin label="Email" name="email" value={formData.email} onChange={handleChange} />
             <InputLogin label="Mot de passe" name="password" type="password" value={formData.password} onChange={handleChange} />
-            <button type="submit" disabled={isLoading}>
-                {isLoading ? "Connexion..." : "Login"}
-            </button>
-            {isError && <p style={{ color: "red" }}>Erreur : {error?.data?.message || "Connexion échouée"}</p>}
+            <Button
+                label={isLoading ? "Connexion..." : "Login"}
+                type="submit"
+                disabled={isLoading}
+                className="login"
+            />
+            {isError ? <p>Erreur : {error?.data?.message || "Connexion échouée"}</p> : <><br /> <br /></>}
         </form>
     );
 };

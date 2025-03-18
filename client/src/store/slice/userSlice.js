@@ -1,12 +1,13 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-export const connectSlice = createApi({
-    reducerPath: "authUser",
+export const userSlice = createApi({
+    reducerPath: "user",
     baseQuery: fetchBaseQuery({
         baseUrl: "http://localhost:3001",
-        credentials: "include", // Inclut les cookies si ton API gère la session avec des cookies
+        credentials: "include",
     }),
     tagTypes: ["User"],
+
     endpoints: (build) => ({
         login: build.mutation({
             query: (user) => ({
@@ -14,14 +15,18 @@ export const connectSlice = createApi({
                 method: "POST",
                 body: user
             }),
-            invalidatesTags: ["User"]
+            invalidatesTags: ["User"],
         }),
-        logout: build.query({
-            query: () => "/logout",
-            providesTags: ["User"]
+
+        logout: build.mutation({
+            query: () => ({
+                url: "/logout",
+                method: "GET",
+            }),
+            invalidatesTags: ["User"],
         }),
         getUser: build.query({
-            query: () => "/me", // Endpoint pour récupérer l'utilisateur connecté
+            query: () => "/me",
             providesTags: ["User"]
         })
     })
@@ -29,6 +34,6 @@ export const connectSlice = createApi({
 
 export const {
     useLoginMutation,
-    useLogoutQuery,
+    useLogoutMutation,
     useGetUserQuery
-} = connectSlice;
+} = userSlice;
