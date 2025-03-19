@@ -1,19 +1,36 @@
-import { useDeletePastryMutation } from "../store/slice/crudSlice";
+import { useDispatch } from "react-redux"
+import { setPastryName, setPastryImage, setPastryQuantity, setPastryForm, setPastryIsUpdate, setPastryIdUpdate } from "../store/slice/formSlice"
 
-import Button from "./Button";
 
-const GridPastry = ({ data }) => {
+import { useDeletePastryMutation } from "../store/slice/crudSlice"
+
+import Button from "./Button"
+
+const GridPastry = ({ data, refetch }) => {
+    const dispatch = useDispatch()
+
     const [deletePastry] = useDeletePastryMutation()
 
     const handleDelete = async (id) => {
         try {
             await deletePastry(id)
-
-            console.log(`Pâtisserie ${id} supprimée avec succès.`);
+            refetch()
+            console.log(`Pâtisserie ${id} supprimée avec succès.`)
         } catch (error) {
-            console.error("Erreur lors de la suppression :", error);
+            console.error("Erreur lors de la suppression :", error)
         }
-    };
+    }
+
+    const handleEdit = (pastry) => {
+        dispatch(setPastryIsUpdate(true))
+        dispatch(setPastryName(pastry.name))
+        dispatch(setPastryQuantity(pastry.quantity))
+        dispatch(setPastryImage(pastry.image))
+        dispatch(setPastryForm(true))
+        dispatch(setPastryIdUpdate(pastry.id))
+        // console.log(pastry.id)
+    }
+
 
     return (
         <div className="grid-pastry">
@@ -40,14 +57,14 @@ const GridPastry = ({ data }) => {
                             <td>{pastry.quantity}</td>
                             <td>
                                 <Button label={"Supprimer"} onClick={() => handleDelete(pastry.id)} className={"delete"} />
-                                <Button label={"Modifier"} onClick={() => console.log("Modifier", pastry.id)} className={"update"} />
+                                <Button label={"Modifier"} onClick={() => handleEdit(pastry)} className={"update"} />
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
         </div>
-    );
-};
+    )
+}
 
-export default GridPastry;
+export default GridPastry

@@ -1,13 +1,10 @@
 @use "colors" as *;
 
 .admin-panel {
-    width: 100%;
-    text-align: center;
 
     h2 {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
         color: $text-color;
-        margin-bottom: 1rem;
     }
 
     .grid-pastry {
@@ -16,7 +13,7 @@
         justify-content: center;
 
         table {
-            width: 90%;
+            // width: 90%;
             border-collapse: collapse;
             background-color: #fff;
             box-shadow: $box-shadow;
@@ -31,7 +28,7 @@
                     th {
                         padding: 12px 15px;
                         text-align: center;
-                        font-size: 16px;
+                        font-size: 1rem;
                     }
                 }
             }

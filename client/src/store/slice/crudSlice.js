@@ -1,30 +1,31 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 
 export const crudSlice = createApi({
-    reducerPath: "crud",
+    reducerPath: "pastry",
     baseQuery: fetchBaseQuery({
         baseUrl: "http://localhost:3001/api",
         credentials: "include"
     }),
-    tagTypes: ["Crud"],
     endpoints: (build) => ({
 
         // GET : all pastry
         getAllPastry: build.query({
             query: () => "/pastries",
-            providesTags: ["Crud"]
         }),
 
         // GET : pastry by id
         getPastry: build.query({
             query: (id) => `/pastrie/${id}`,
-            providesTags: (id) => [{ type: "Crud", id }],
+        }),
+
+        // GET : pastry by word
+        getWordPastry: build.query({
+            query: (word) => `/pastries-search/${word}`,
         }),
 
         //GET : total pastry
         getTotalPastry: build.query({
             query: () => "/pastries-count",
-            providesTags: ["Crud"]
         }),
 
         // POST : add pastry
@@ -34,17 +35,15 @@ export const crudSlice = createApi({
                 method: "POST",
                 body: pastry
             }),
-            invalidatesTags: ["Crud"]
         }),
 
         //PUT : update pastry
         updatePastry: build.mutation({
-            query: (pastry) => ({
+            query: ({ id, ...pastry }) => ({
                 url: `/pastrie/${id}`,
                 method: "PUT",
                 body: pastry
             }),
-            invalidatesTags: ["Crud"]
         }),
 
         // DELETE : delete pastry
@@ -54,16 +53,16 @@ export const crudSlice = createApi({
                 method: "DELETE",
                 body: id
             }),
-            invalidatesTags: ["Crud"],
         })
 
     })
-});
+})
 
 export const {
+    useGetWordPastryQuery,
     useGetAllPastryQuery,
     useGetPastryQuery,
     useAddPastryMutation,
     useDeletePastryMutation,
     useUpdatePastryMutation
-} = crudSlice;
+} = crudSlice

@@ -8,6 +8,42 @@ body {
     line-height: 1.6;
 }
 
+h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+
+.input-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+
+    label {
+        font-size: 1rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        color: $text-color;
+    }
+
+    input {
+        padding: 0.8rem;
+        font-size: 1rem;
+        border: 1px solid $border-color;
+        border-radius: 5px;
+        background-color: #fff;
+        transition: border 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+
+        &:focus {
+            outline: none;
+            border-color: $primary-color;
+            box-shadow: 0px 0px 5px rgba(255, 102, 0, 0.4);
+        }
+    }
+}
+
+
 .container {
     display: flex;
     flex-direction: column;
@@ -15,8 +51,7 @@ body {
     justify-content: center;
     margin: 6rem auto;
     padding: 4rem;
-    width: 90%;
-    max-width: 1200px;
+    max-width: 1000px;
     border: 2px solid $border-color;
     border-radius: 12px;
     background-color: $background-light;
@@ -63,6 +98,7 @@ body {
     &.add {
         background-color: $btn-add;
         color: white;
+        margin-bottom: 1rem;
 
         &:hover {
             background-color: $btn-add-hover;
@@ -72,6 +108,8 @@ body {
     &.delete {
         background-color: $btn-delete;
         color: white;
+        width: 120px;
+        margin-right: 5px;
 
         &:hover {
             background-color: $btn-delete-hover;
@@ -81,9 +119,34 @@ body {
     &.update {
         background-color: $btn-update;
         color: white;
+        width: 120px;
+        margin-left: 5px;
 
         &:hover {
             background-color: $btn-update-hover;
+        }
+    }
+
+
+    label {
+        font-size: 1rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        color: $text-color;
+    }
+
+    input {
+        padding: 0.8rem;
+        font-size: 1rem;
+        border: 1px solid $border-color;
+        border-radius: 5px;
+        background-color: #fff;
+        transition: border 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+
+        &:focus {
+            outline: none;
+            border-color: $primary-color;
+            box-shadow: 0px 0px 5px rgba(255, 102, 0, 0.4);
         }
     }
 }

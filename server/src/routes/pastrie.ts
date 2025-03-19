@@ -27,7 +27,7 @@ router.get("/pastries", authentified, async (req: CustomRequest, res: Response) 
 router.get("/pastrie/:id", authentified, async (req: CustomRequest, res: Response) => {
 
     const id: string = req.params.id
-    const pastries : Pastrie[] | undefined = req.locals?.pastries
+    const pastries: Pastrie[] | undefined = req.locals?.pastries
 
     const pastrie: Pastrie | undefined = pastries?.find(p => p.id == id)
 
@@ -46,7 +46,7 @@ router.get("/pastries-search/:word", authentified, async (req: CustomRequest, re
     const word: string = req.params.word;
     const re = new RegExp(word.trim(), 'i');
 
-    const pastries : Pastrie[] | undefined = req.locals?.pastries
+    const pastries: Pastrie[] | undefined = req.locals?.pastries
     const pastrie: Pastrie | undefined = pastries?.find(p => p.name.match(re))
 
     if (pastrie) {
@@ -63,7 +63,7 @@ router.get("/pastries-search/:word", authentified, async (req: CustomRequest, re
 router.get("/pastries/:offset?/:limit", async (req: CustomRequest, res: Response) => {
     const offset: number = parseInt(req.params.offset);
     const limit: number = parseInt(req.params.limit);
-    const pastries : Pastrie[] | undefined = req.locals?.pastries
+    const pastries: Pastrie[] | undefined = req.locals?.pastries
 
     const p: Pastrie[] | undefined = limit ? pastries?.slice(offset).slice(0, limit) : pastries?.slice(offset)
 
@@ -74,7 +74,7 @@ router.get("/pastries/:offset?/:limit", async (req: CustomRequest, res: Response
 router.get("/pastries/order-quantity/:offset?/:limit", authentified, async (req: CustomRequest, res: Response) => {
     const offset: number = parseInt(req.params.offset);
     const limit: number = parseInt(req.params.limit);
-    const pastries : Pastrie[] | undefined = req.locals?.pastries
+    const pastries: Pastrie[] | undefined = req.locals?.pastries
 
     // by quantity order 
     pastries?.sort((a, b) => b.quantity - a.quantity)
@@ -85,16 +85,16 @@ router.get("/pastries/order-quantity/:offset?/:limit", authentified, async (req:
 
 // Endpoint pour récupérer le nombre de pastries 
 router.get("/pastries-count", authentified, async (req: CustomRequest, res: Response) => {
-    const pastries : Pastrie[] | undefined = req.locals?.pastries
+    const pastries: Pastrie[] | undefined = req.locals?.pastries
 
     return res.json(pastries?.length || 0);
 });
 
 // Endpoint pour ajouter une pastrie
 router.post("/pastrie", authentified, async (req: CustomRequest, res: Response) => {
-    const { name, quantity, image, choice } = trimAll(req.body);
-    const p: Pastrie = { name, quantity, image, choice };
-    const pastries : Pastrie[] | undefined = req.locals?.pastries
+    const { name, quantity, quantityWon, image, choice } = trimAll(req.body);
+    const p: Pastrie = { name, image, quantity, quantityWon, choice };
+    const pastries: Pastrie[] | undefined = req.locals?.pastries
 
     // on vérifie les champs obligatoires
     if (!p.name || !p.quantity) {
@@ -122,7 +122,9 @@ router.post("/pastrie", authentified, async (req: CustomRequest, res: Response) 
 router.put("/pastrie/:id", authentified, async (req: CustomRequest, res: Response) => {
     const id: string = req.params.id;
     const { name, quantity, image, choice } = trimAll(req.body);
-    const pastries : Pastrie[] | undefined = req.locals?.pastries
+
+    // console.log(req.body)
+    const pastries: Pastrie[] | undefined = req.locals?.pastries
 
     const p: Pastrie | undefined = pastries?.find(p => p.id == id);
 

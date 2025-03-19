@@ -1,0 +1,23 @@
+.yams-game {
+    text-align: center;
+    width: 100%;
+
+    .list-dice {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 50px;
+    }
+
+    .dice img {
+        width: 150px;
+        height: 150px;
+        transition: transform 0.2s ease-in-out;
+
+        &:hover {
+            transform: scale(1.05);
+        }
+    }
+
+
+}
