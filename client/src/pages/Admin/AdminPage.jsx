@@ -26,18 +26,20 @@ const AdminPage = () => {
 
             {!showForm ? (
                 <div className="admin-panel">
-                    <h2>Liste des pâtisseries :</h2>
+                    {isLoading && <p>Chargement des pâtisseries...</p>}
+                    {isError && <p>Erreur lors du chargement des pâtisseries.</p>}
 
-                    <Button label={"Ajouter une pâtisserie"} onClick={handleClick} className={"add"} />
+                    {isSuccess && (
+                        <>
+                            <h2>Liste des pâtisseries :</h2>
+                            <Button label={"Ajouter une pâtisserie"} onClick={handleClick} className={"add"} />
 
-                    {isLoading ? (
-                        <p>Chargement des pâtisseries...</p>
-                    ) : isError ? (
-                        <p>Erreur lors du chargement des pâtisseries.</p>
-                    ) : isSuccess && data?.length > 0 ? (
-                        <GridPastry data={data} />
-                    ) : (
-                        <p> Aucune pâtisserie disponible.</p>
+                            {data?.length > 0 ? (
+                                <GridPastry data={data} />
+                            ) : (
+                                <p>Aucune pâtisserie disponible.</p>
+                            )}
+                        </>
                     )}
                 </div>
             ) : (

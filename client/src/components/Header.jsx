@@ -4,13 +4,11 @@ import { useLogoutMutation, useGetUserQuery } from "../store/slice/userSlice"
 import "../assets/style/header.scss"
 const Header = () => {
     const [logout] = useLogoutMutation()
-    const { data: user } = useGetUserQuery()
-
+    const { isSuccess } = useGetUserQuery()
 
     const handleLogout = async () => {
         try {
             await logout()
-            window.location.reload()
         } catch (error) {
             console.error("Erreur lors de la déconnexion :", error)
         }
@@ -23,7 +21,7 @@ const Header = () => {
             <nav className="nav-bar">
                 <NavLink to="/">Home</NavLink>
                 <NavLink to="/contact">Contact</NavLink>
-                {user ? (
+                {isSuccess ? (
                     <>
                         <NavLink to="/admin">Admin</NavLink>
                         <NavLink to="/login" onClick={handleLogout}>
