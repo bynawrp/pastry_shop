@@ -2,11 +2,11 @@ import { useDispatch } from "react-redux"
 import { setPastryName, setPastryImage, setPastryQuantity, setPastryForm, setPastryIsUpdate, setPastryIdUpdate } from "../store/slice/formSlice"
 
 
-import { useDeletePastryMutation } from "../store/slice/crudSlice"
+import { useDeletePastryMutation } from "../store/slice/pastrySlice"
 
 import Button from "./Button"
 
-const GridPastry = ({ data, refetch }) => {
+const GridPastry = ({ data }) => {
     const dispatch = useDispatch()
 
     const [deletePastry] = useDeletePastryMutation()
@@ -14,7 +14,7 @@ const GridPastry = ({ data, refetch }) => {
     const handleDelete = async (id) => {
         try {
             await deletePastry(id)
-            refetch()
+            // refetch()
             console.log(`Pâtisserie ${id} supprimée avec succès.`)
         } catch (error) {
             console.error("Erreur lors de la suppression :", error)

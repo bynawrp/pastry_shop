@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
     login: {
@@ -12,9 +12,9 @@ const initialState = {
         image: "",
         showForm: false,
         isUpdate: false,
-        idUpdate: ""
+        idUpdate: null
     },
-    // error: ""
+    error: ""
 }
 
 const formSlice = createSlice({
@@ -66,6 +66,7 @@ const formSlice = createSlice({
 
         resetPastryForm: (state) => {
             state.pastry = initialState.pastry
+            state.error = initialState.error
         },
 
         //ERROR

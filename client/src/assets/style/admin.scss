@@ -1,16 +1,40 @@
 @use "colors" as *;
 
-.admin-panel {
+.form-pastry {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
 
-    h2 {
-        font-size: 1.8rem;
-        color: $text-color;
+    span {
+        margin: 10px;
     }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .validate-form {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-top: 1rem;
+    }
+}
+
+.admin-panel {
 
     .grid-pastry {
         width: 100%;
         display: flex;
         justify-content: center;
+        margin-top: 1rem;
 
         table {
             // width: 90%;

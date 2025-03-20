@@ -1,23 +1,22 @@
 import { configureStore } from "@reduxjs/toolkit"
 import { userSlice } from "./slice/userSlice"
-import { gameSlice } from "./slice/gameSlice"
-import { crudSlice } from "./slice/crudSlice"
+import { pastrySlice } from "./slice/pastrySlice"
 
 import formReducer from "./slice/formSlice"
+import yamsReducer from "./slice/yamsSlice"
 
 const store = configureStore({
     reducer: {
         form: formReducer,
+        yams: yamsReducer,
         [userSlice.reducerPath]: userSlice.reducer,
-        [gameSlice.reducerPath]: gameSlice.reducer,
-        [crudSlice.reducerPath]: crudSlice.reducer,
+        [pastrySlice.reducerPath]: pastrySlice.reducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware()
             .concat([
                 userSlice.middleware,
-                gameSlice.middleware,
-                crudSlice.middleware
+                pastrySlice.middleware
             ])
 })
 

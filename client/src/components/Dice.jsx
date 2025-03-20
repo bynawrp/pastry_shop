@@ -6,7 +6,7 @@ import d5 from "../assets/img/d5.png"
 import d6 from "../assets/img/d6.png"
 import dLock from "../assets/img/d_lock.png"
 
-const Dice = ({ value }) => {
+const Dice = ({ value, locked, end, onClick }) => {
     const diceImages = {
         1: d1,
         2: d2,
@@ -17,10 +17,11 @@ const Dice = ({ value }) => {
     }
 
     return (
-        <div className="dice">
+        <div className="dice " onClick={onClick}>
             <img
                 src={value ? diceImages[value] : dLock}
                 alt={`Dé ${value || "verrouillé"}`}
+                className={`${locked && "locked"} ${end && "end"}`}
             />
         </div>
     )

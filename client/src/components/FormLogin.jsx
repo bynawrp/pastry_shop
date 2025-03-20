@@ -53,7 +53,12 @@ const FormLogin = () => {
                 disabled={isLoading}
                 className="login"
             />
-            {isError ? <p>Erreur : {error?.data?.message || "Connexion échouée"}</p> : <><br /> <br /></>}
+            {isError && (
+                <div className="error-message">
+                    Erreur : {error?.data?.message || "Connexion échouée"}
+                </div>
+            )}
+
         </form>
     )
 }

@@ -1,4 +1,4 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 
 export const userSlice = createApi({
     reducerPath: "user",
@@ -30,10 +30,10 @@ export const userSlice = createApi({
             providesTags: ["User"]
         })
     })
-});
+})
 
 export const {
     useLoginMutation,
     useLogoutMutation,
     useGetUserQuery
-} = userSlice;
+} = userSlice

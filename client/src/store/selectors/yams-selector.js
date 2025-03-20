@@ -1,0 +1,1 @@
+export const selectYams = (state) => state.yams

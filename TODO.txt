@@ -1,0 +1,14 @@
+Featurses :
+
+// BONUS
+- Calendrier de l'avant (1 try par jour (localstorage)
+- Formulaire de recherche
+
+
+BUG :
+
+- SCSS
+
+- LOGIN (checker constament si l'utilisatuer est connect� sinon rediriger vers home)
+- > force windows.relaod
+- Bloquer les acc�s depuis url ( redirection vers home aussi)

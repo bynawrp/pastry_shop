@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router"
-import { useEffect } from "react"
-import { useGetAllPastryQuery } from "../../store/slice/gameSlice"
+import { useGetAllGamePastryQuery } from "../../store/slice/pastrySlice"
 
 import Button from "../../components/Button"
 import ListPastry from "../../components/ListPastry"
@@ -9,7 +8,7 @@ import "../../assets/style/home.scss"
 const HomePage = () => {
     const navigate = useNavigate()
 
-    const { data: pastries, error, isLoading } = useGetAllPastryQuery()
+    const { data, isError, isLoading, isSuccess } = useGetAllGamePastryQuery()
 
     const handleClick = () => {
         navigate("/game")
@@ -23,10 +22,10 @@ const HomePage = () => {
 
             {isLoading ? (
                 <p>Chargement des pâtisseries...</p>
-            ) : error ? (
+            ) : isError ? (
                 <p>Erreur lors du chargement des pâtisseries.</p>
-            ) : pastries.length > 0 ? (
-                <ListPastry data={pastries} />
+            ) : isSuccess && data.length > 0 ? (
+                <ListPastry data={data} />
             ) : (
                 <p>Aucune pâtisserie disponible.</p>
             )}

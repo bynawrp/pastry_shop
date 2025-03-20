@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from "react-redux"
-import { selectPastryForm } from "../store/selectors/form-selector"
-import { setPastryName, setPastryImage, setPastryQuantity, resetPastryForm, setPastryForm, resetPastryIdUpdate } from "../store/slice/formSlice"
-import { useAddPastryMutation, useUpdatePastryMutation } from "../store/slice/crudSlice"
+import { selectPastryForm, selectError } from "../store/selectors/form-selector"
+import { setPastryName, setPastryImage, setPastryQuantity, resetPastryForm, setPastryForm, resetPastryIdUpdate, setError } from "../store/slice/formSlice"
+import { useAddPastryMutation, useUpdatePastryMutation } from "../store/slice/pastrySlice"
 
 import InputLogin from "./InputLogin"
 import Button from "./Button"
 
-const FormPastry = ({ refetch }) => {
+const FormPastry = () => {
     const dispatch = useDispatch()
 
 
@@ -14,14 +14,16 @@ const FormPastry = ({ refetch }) => {
     const [updatePastry] = useUpdatePastryMutation()
 
     const { name, quantity, image, isUpdate, idUpdate } = useSelector(selectPastryForm)
+    const { error } = useSelector(selectError)
 
+    // console.log(error)
 
     const handleChange = (e) => {
         const { name, value } = e.target
         if (name === "name") {
             dispatch(setPastryName(value))
         } else if (name === "quantity") {
-            dispatch(setPastryQuantity(value))
+            dispatch(setPastryQuantity((value)))
         } else if (name === "image") {
             dispatch(setPastryImage(value))
         }
@@ -42,18 +44,22 @@ const FormPastry = ({ refetch }) => {
                 const formPastry = { name, quantity, image, choice: true }
                 // console.log(formPastry)
                 await updatePastry({ id: idUpdate, ...formPastry })
-                refetch()
+                // refetch()
                 dispatch(resetPastryForm())
                 dispatch(resetPastryIdUpdate())
                 dispatch(setPastryForm(false))
                 console.log("Modification de la pâtisserie", idUpdate)
             } else {
                 const formPastry = { name, quantity, image, quantityWon: 0, choice: true }
-                await addPastry(formPastry)
-                refetch()
-                dispatch(resetPastryForm())
-                dispatch(setPastryForm(false))
-                console.log("Pâtisserie ajoutée avec succès !")
+                if (formPastry.quantity > 0) {
+                    await addPastry(formPastry)
+                    // refetch()
+                    dispatch(resetPastryForm())
+                    dispatch(setPastryForm(false))
+                    console.log("Pâtisserie ajoutée avec succès !")
+                } else {
+                    dispatch(setError("La quantité doit être un nombre entier supérieur à 0"))
+                }
             }
         } catch (err) {
             console.error("Erreur lors de l'ajout/modification de la pâtisserie :", err)
@@ -67,8 +73,12 @@ const FormPastry = ({ refetch }) => {
                 <InputLogin label="Nom" name="name" value={name} onChange={handleChange} />
                 <InputLogin label="Quantité" name="quantity" type="number" value={quantity} onChange={handleChange} />
                 <InputLogin label="Image" name="image" value={image} onChange={handleChange} />
-                <Button label="Annuler" onClick={handleCancel} />
-                <Button label={isUpdate ? "Modifier la pâtisserie" : "Créer la pâtisserie"} type="submit" />
+                {error && <div className="error-message">{error}</div>}
+                <div className="validate-form">
+                    <Button label="Annuler" onClick={handleCancel} className="cancel" />
+                    <span></span>
+                    <Button label={isUpdate ? "Modifier la pâtisserie" : "Créer la pâtisserie"} type="submit" className={isUpdate ? "update" : "add"} />
+                </div>
             </form>
         </div>
     )

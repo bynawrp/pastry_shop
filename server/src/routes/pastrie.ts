@@ -93,7 +93,9 @@ router.get("/pastries-count", authentified, async (req: CustomRequest, res: Resp
 // Endpoint pour ajouter une pastrie
 router.post("/pastrie", authentified, async (req: CustomRequest, res: Response) => {
     const { name, quantity, quantityWon, image, choice } = trimAll(req.body);
-    const p: Pastrie = { name, image, quantity, quantityWon, choice };
+    const quantityInt = parseInt(quantity)
+
+    const p: Pastrie = { name, image, quantity: quantityInt, quantityWon, choice };
     const pastries: Pastrie[] | undefined = req.locals?.pastries
 
     // on vérifie les champs obligatoires
@@ -106,7 +108,6 @@ router.post("/pastrie", authentified, async (req: CustomRequest, res: Response) 
         // on récupère le dernier id et on incrémente
         const lastId: string = pastries[pastries.length - 1]?.id || "0";
         p.id = (parseInt(lastId) + 1).toString();
-
         pastries.push(p);
         await fs.writeFile(filePath, JSON.stringify(pastries), 'utf-8');
 
