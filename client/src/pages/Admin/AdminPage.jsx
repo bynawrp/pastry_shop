@@ -1,37 +1,53 @@
 import { useEffect } from "react"
+import { useNavigate } from "react-router"
 import { useDispatch, useSelector } from "react-redux"
 
 import { selectPastryForm } from "../../store/selectors/form-selector"
+import { selectWord } from "../../store/selectors/searchbar-selector"
+import { setWord } from "../../store/slice/searchbarSlice"
 import { setPastryForm, setPastryIsUpdate } from "../../store/slice/formSlice"
-import { useGetAllPastryQuery } from "../../store/slice/pastrySlice"
+import { useGetAllPastryQuery, useSearchPastryByWordQuery } from "../../store/slice/pastrySlice"
 import { useGetUserQuery } from "../../store/slice/userSlice"
 
 import Button from "../../components/Button"
 import GridPastry from "../../components/GridPastry"
 import FormPastry from "../../components/FormPastry"
+import Input from "../../components/Input"
 
 import "../../assets/style/admin.scss"
-import { useNavigate } from "react-router"
 
 const AdminPage = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    const { data, isLoading, isError, isSuccess } = useGetAllPastryQuery()
+    const { data: allPastries, isLoading, isError, isSuccess } = useGetAllPastryQuery()
+
+    const word = useSelector(selectWord)
+    const { data: pastrySearch, isFetching } = useSearchPastryByWordQuery(word, { skip: word.length < 3 })
+
+    const pastryToShow = word.length >= 3
+        ? (Array.isArray(pastrySearch) ? pastrySearch : [pastrySearch])
+        : allPastries
+
+    console.log(pastryToShow)
     const { showForm } = useSelector(selectPastryForm)
 
     const { isSuccess: isConnected, isLoading: waiting } = useGetUserQuery()
-
-    const handleClick = () => {
-        dispatch(setPastryIsUpdate(false))
-        dispatch(setPastryForm(true))
-    }
 
     useEffect(() => {
         if (!waiting && !isConnected) {
             navigate("/login")
         }
     }, [waiting, isConnected, navigate])
+
+    const handleChange = (e) => {
+        dispatch(setWord(e.target.value))
+    }
+
+    const handleClick = () => {
+        dispatch(setPastryIsUpdate(false))
+        dispatch(setPastryForm(true))
+    }
 
     return (
         <div className="container">
@@ -45,12 +61,18 @@ const AdminPage = () => {
                     {isSuccess && (
                         <>
                             <h2>Liste des pâtisseries :</h2>
-                            <Button label={"Ajouter une pâtisserie"} onClick={handleClick} className={"add"} />
+                            <div className="outil">
+                                <Button label={"Ajouter une pâtisserie"} onClick={handleClick} className={"add"} />
+                                <Input name={"searchbar"} value={word} onChange={handleChange} className={"searchbar"} />
+                            </div>
 
-                            {data?.length > 0 ? (
-                                <GridPastry data={data} />
+
+                            {isFetching ? (
+                                <p>Recherche en cours...</p>
+                            ) : pastryToShow.length > 0 ? (
+                                <GridPastry data={pastryToShow} />
                             ) : (
-                                <p>Aucune pâtisserie disponible.</p>
+                                <p>{word.length >= 3 ? "Aucune pâtisserie trouvée." : "Aucune pâtisserie disponible."}</p>
                             )}
                         </>
                     )}

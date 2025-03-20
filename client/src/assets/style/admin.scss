@@ -30,6 +30,13 @@
 
 .admin-panel {
 
+
+    .outil {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
     .grid-pastry {
         width: 100%;
         display: flex;

@@ -46,16 +46,13 @@ router.get("/pastries-search/:word", authentified, async (req: CustomRequest, re
     const word: string = req.params.word;
     const re = new RegExp(word.trim(), 'i');
 
-    const pastries: Pastrie[] | undefined = req.locals?.pastries
-    const pastrie: Pastrie | undefined = pastries?.find(p => p.name.match(re))
+    const pastries: Pastrie[] | undefined = req.locals?.pastries;
+    const matchingPastries: Pastrie[] = pastries?.filter(p => p.name.match(re)) || [];
 
-    if (pastrie) {
-
-        return res.json(pastrie);
+    if (matchingPastries.length > 0) {
+        return res.json(matchingPastries);
     } else {
-        return res.status(404).json({
-            message: 'Pâtisserie non trouvée !'
-        });
+        return res.json([]);
     }
 });
 

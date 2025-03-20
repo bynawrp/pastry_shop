@@ -3,7 +3,7 @@ import { selectPastryForm, selectError } from "../store/selectors/form-selector"
 import { setPastryName, setPastryImage, setPastryQuantity, resetPastryForm, setPastryForm, resetPastryIdUpdate, setError } from "../store/slice/formSlice"
 import { useAddPastryMutation, useUpdatePastryMutation } from "../store/slice/pastrySlice"
 
-import InputLogin from "./InputLogin"
+import Input from "./Input"
 import Button from "./Button"
 
 const FormPastry = () => {
@@ -70,9 +70,9 @@ const FormPastry = () => {
         <div className="form-pastry">
             <h2>{isUpdate ? "Modifier une pâtisserie" : "Ajouter une pâtisserie"} :</h2>
             <form onSubmit={handleSubmit}>
-                <InputLogin label="Nom" name="name" value={name} onChange={handleChange} />
-                <InputLogin label="Quantité" name="quantity" type="number" value={quantity} onChange={handleChange} />
-                <InputLogin label="Image" name="image" value={image} onChange={handleChange} />
+                <Input label="Nom" name="name" value={name} onChange={handleChange} />
+                <Input label="Quantité" name="quantity" type="number" value={quantity} onChange={handleChange} />
+                <Input label="Image" name="image" value={image} onChange={handleChange} />
                 {error && <div className="error-message">{error}</div>}
                 <div className="validate-form">
                     <Button label="Annuler" onClick={handleCancel} className="cancel" />

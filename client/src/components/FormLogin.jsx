@@ -5,7 +5,7 @@ import { setLoginEmail, setLoginPassword, resetLoginForm } from "../store/slice/
 import { useLoginMutation } from "../store/slice/userSlice"
 import { useNavigate } from "react-router"
 
-import InputLogin from "./InputLogin"
+import Input from "./Input"
 import Button from "./Button"
 
 const FormLogin = () => {
@@ -45,8 +45,8 @@ const FormLogin = () => {
 
     return (
         <form onSubmit={handleSubmit} className="form-login">
-            <InputLogin label="Email" name="email" value={email} onChange={handleChange} />
-            <InputLogin label="Mot de passe" name="password" type="password" value={password} onChange={handleChange} />
+            <Input label="Email" name="email" value={email} onChange={handleChange} className={"login"} />
+            <Input label="Mot de passe" name="password" type="password" value={password} onChange={handleChange} className={"login"} />
             <Button
                 label={isLoading ? "Connexion..." : "Login"}
                 type="submit"

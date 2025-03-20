@@ -1,0 +1,1 @@
+export const selectWord = (state) => state.searchbar.word
