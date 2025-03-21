@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon src/app.ts",
+    "start": "echo \"Error: no test specified\" && exit 1",
     "dev": "concurrently \"tsc --watch\" \"tsnd --respawn src/app.ts\""
   },
   "keywords": [],

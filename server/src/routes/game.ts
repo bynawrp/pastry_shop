@@ -44,20 +44,21 @@ router.get('/pastrie/:id', async (req: CustomRequest, res: Response) => {
 router.get('/win-pastries/:quantity', async (req: CustomRequest, res: Response) => {
     const quantity: number = parseInt(req.params.quantity)
     let pastries: Pastrie[] | undefined = req.locals?.pastries
+
     // error first
     if (isNaN(quantity) || quantity <= 0)
         return res.status(400).json(
             { message: 'La quantité doit être un nombre entier positif.' }
         );
 
-    // error first
+     // error first
     if (pastries == undefined)
         return res.status(404).json({
             message: 'Pâtisserie(s) non trouvée !'
         });
 
     // aléatoire sur les pâtisseries encore à gagner
-    const pastriesWin: Pastrie[] = modifyQuantityPastries(pastries, quantity)
+    const pastriesWin : Pastrie[] = modifyQuantityPastries(pastries, quantity)
     await fs.writeFile(filePath, JSON.stringify(pastries), 'utf-8');
 
     return res.json(pastriesWin);

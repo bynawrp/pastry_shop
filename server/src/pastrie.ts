@@ -4,5 +4,5 @@ export interface Pastrie {
   quantity: number;
   quantityWon?: number;
   image?: string;
-  choice?: boolean;
+  choice? : boolean;
 }
