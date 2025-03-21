@@ -68,6 +68,21 @@
         }
     }
 
+    .looser-message {
+        background-color: #fcebea;
+        border-left: 5px solid #c62828;
+        padding: 12px 16px;
+        border-radius: 8px;
+        color: #c62828;
+        margin: 20px auto;
+        font-size: 1.1rem;
+
+        span {
+            font-size: 1.2rem;
+        }
+
+    }
+
 
 
 }

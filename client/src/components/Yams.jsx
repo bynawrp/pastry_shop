@@ -5,7 +5,7 @@ import { selectYams } from "../store/selectors/yams-selector"
 
 import Dice from "./Dice"
 import Button from "./Button"
-import Victory from "./Victory"
+import Result from "./Result"
 
 const Yams = () => {
     const dispatch = useDispatch()
@@ -74,7 +74,7 @@ const Yams = () => {
                 ))}
             </div>
 
-            {isWin && <Victory win={type} />}
+            {(isWin || retry === 0) && <Result type={type} win={isWin} />}
 
             <Button
                 label={retry > 0 ? `Il vous reste ${retry} essai(s)` : "Vous n'avez plus d'essais"}
