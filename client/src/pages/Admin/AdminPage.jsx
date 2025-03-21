@@ -20,19 +20,18 @@ const AdminPage = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    const { data: allPastries, isLoading, isError, isSuccess } = useGetAllPastryQuery()
-
-    const word = useSelector(selectWord)
-    const { data: pastrySearch, isFetching } = useSearchPastryByWordQuery(word, { skip: word.length < 3 })
-
-    const pastryToShow = word.length >= 3
-        ? (Array.isArray(pastrySearch) ? pastrySearch : [pastrySearch])
-        : allPastries
-
-    console.log(pastryToShow)
     const { showForm } = useSelector(selectPastryForm)
+    const word = useSelector(selectWord)
 
     const { isSuccess: isConnected, isLoading: waiting } = useGetUserQuery()
+    const { data: allPastries, isLoading, isError, isSuccess } = useGetAllPastryQuery()
+    const { data: pastrySearch, error } = useSearchPastryByWordQuery(word, { skip: word.length < 3 })
+
+    // console.log(pastrySearch, error?.data?.message)
+    const pastryToShow = word.length >= 3
+        ? error ? [] : pastrySearch ? [pastrySearch] : []
+        : allPastries
+    // console.log(pastryToShow)
 
     useEffect(() => {
         if (!waiting && !isConnected) {
@@ -63,16 +62,14 @@ const AdminPage = () => {
                             <h2>Liste des pâtisseries :</h2>
                             <div className="outil">
                                 <Button label={"Ajouter une pâtisserie"} onClick={handleClick} className={"add"} />
-                                <Input name={"searchbar"} value={word} onChange={handleChange} className={"searchbar"} />
+                                <Input name={"searchbar"} value={word} onChange={handleChange} className={"searchbar"} placeholder={"Rechercher une pâtisserie..."} />
                             </div>
 
 
-                            {isFetching ? (
-                                <p>Recherche en cours...</p>
-                            ) : pastryToShow.length > 0 ? (
+                            {pastryToShow.length > 0 ? (
                                 <GridPastry data={pastryToShow} />
                             ) : (
-                                <p>{word.length >= 3 ? "Aucune pâtisserie trouvée." : "Aucune pâtisserie disponible."}</p>
+                                <p>{word.length >= 3 ? error?.data?.message : "Aucune pâtisserie disponible."}</p>
                             )}
                         </>
                     )}

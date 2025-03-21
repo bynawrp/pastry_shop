@@ -1,9 +1,9 @@
-const Input = ({ label, name, type = "text", value, onChange, className }) => {
+const Input = ({ label, name, type = "text", value, onChange, className, placeholder }) => {
     return (
 
         <div className={`input-form ${className ? className : ""}`}>
             {label && <label>{label}</label>}
-            <input type={type} name={name} value={value} onChange={onChange} required />
+            <input type={type} name={name} value={value} onChange={onChange} placeholder={placeholder} required />
         </div>
     )
 }
