@@ -1,5 +1,4 @@
 import "../assets/style/footer.scss"
-
 const Footer = () => {
     return (
         <footer className="footer">
